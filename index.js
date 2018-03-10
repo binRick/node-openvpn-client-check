@@ -12,6 +12,7 @@ var program = require('commander'),
         port: null
     };
 
+
 program
     .version('0.1.0')
     .option('-c, --config <config>', 'OpenVPN Config File')
@@ -22,6 +23,7 @@ program
 
 program.timeout = program.timeout || 30;
 program.debug = program.debug || false;
+program.openvpn = program.openvpn || '/usr/sbin/openvpn';
 
 setTimeout(function() {
     ov.kill();
@@ -42,7 +44,7 @@ ov.stdout.on('data', function(o) {
     }
     if (o.includes('Initialization Sequence Completed')) {
         connected = true;
-        l('VPN Connected to', connectedTo.ip, 'port', connectedTo.port);
+        l('OK: VPN Connected to', connectedTo.ip, 'port', connectedTo.port);
         setTimeout(function() {
             ov.kill();
         }, 100);
