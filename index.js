@@ -58,5 +58,7 @@ ov.stderr.on('data', function(o) {
 ov.on('exit', function(code) {
     if (program.debug != false)
         l('openvpn exited with code', code);
+    if(!connected)
+	l('CRIT: Unable to connect to VPN');
     process.exit(code);
 });
